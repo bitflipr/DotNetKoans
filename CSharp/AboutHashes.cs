@@ -13,7 +13,7 @@ namespace DotNetKoans.CSharp
         {
             var hash = new Hashtable();
             Assert.Equal(typeof(System.Collections.Hashtable), hash.GetType());
-            Assert.Equal(FILL_ME_IN, hash.Count);
+            Assert.Equal(0, hash.Count);
         }
 
         [Koan(2)]
@@ -23,16 +23,16 @@ namespace DotNetKoans.CSharp
             //See Haacked's blog here: http://haacked.com/archive/2008/01/06/collection-initializers.aspx
             //This is one way:
             var hash = new Hashtable() { { "one", "uno" }, { "two", "dos" } };
-            Assert.Equal(FILL_ME_IN, hash.Count);
+            Assert.Equal(2, hash.Count);
         }
 
         [Koan(3)]
         public void AccessingHashes()
         {
             var hash = new Hashtable() { { "one", "uno" }, { "two", "dos" } };
-            Assert.Equal(FILL_ME_IN, hash["one"]);
-            Assert.Equal(FILL_ME_IN, hash["two"]);
-            Assert.Equal(FILL_ME_IN, hash["doesntExist"]);
+            Assert.Equal("uno", hash["one"]);
+            Assert.Equal("dos", hash["two"]);
+            Assert.Equal(null, hash["doesntExist"]);
         }
 
         [Koan(4)]
@@ -41,7 +41,7 @@ namespace DotNetKoans.CSharp
             var hash = new Hashtable() { { "one", "uno" }, { "two", "dos" } };
             hash["one"] = "eins";
 
-            var expected = new Hashtable() { { "one", FILL_ME_IN }, { "two", "dos" } };
+            var expected = new Hashtable() { { "one", "eins" }, { "two", "dos" } };
             Assert.Equal(expected, hash);
         }
 
@@ -71,7 +71,7 @@ namespace DotNetKoans.CSharp
 
             Assert.Equal(expectedKeys, actualKeys);
 
-            var expectedValues = new List<string>() { FILL_ME_IN.ToString(), FILL_ME_IN.ToString() };
+            var expectedValues = new List<string>() { "uno".ToString(), "dos".ToString() };
             expectedValues.Sort();
             var actualValues = hash.Values.Cast<string>().ToList();
             actualValues.Sort();
@@ -85,7 +85,7 @@ namespace DotNetKoans.CSharp
             var hash = new Hashtable() { { "jim", 53 }, {"amy", 20}, {"dan", 23}};
 
             //We can't add the same key:
-            Assert.Throws(typeof(FillMeIn), delegate() { hash.Add("jim", 54); });
+            Assert.Throws(typeof(System.ArgumentException), delegate() { hash.Add("jim", 54); });
 
             //But let's say we wanted to merge two Hashtables? 
             //We have the following:
@@ -98,9 +98,9 @@ namespace DotNetKoans.CSharp
                 hash[item.Key] = item.Value;
             }
 
-            Assert.Equal(FILL_ME_IN, hash["jim"]);
-            Assert.Equal(FILL_ME_IN, hash["jenny"]);
-            Assert.Equal(FILL_ME_IN, hash["amy"]);
+            Assert.Equal(54, hash["jim"]);
+            Assert.Equal(26, hash["jenny"]);
+            Assert.Equal(20, hash["amy"]);
 
         }
     }
